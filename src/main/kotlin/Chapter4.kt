@@ -18,6 +18,12 @@ class Button : Clickable, Focusable {
     }
 }
 
+open class RichButton : Clickable {
+    fun disable() {}
+    open fun animate() {}
+    override fun click() {}
+}
+
 fun main(args: Array<String>) {
 //    Button().click()
 //    Button().showOff()

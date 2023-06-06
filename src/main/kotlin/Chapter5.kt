@@ -1,3 +1,4 @@
+import java.time.Period
 import java.util.Collections
 import kotlin.math.max
 
@@ -36,9 +37,12 @@ fun printProblemCounts(responses: Collection<String>) {
 
 fun salute() = println("Salute!")
 
+class Book(val title: String, val authors: List<String>)
+
 
 fun main(args: Array<String>) {
-    val people = listOf(Person("Alice", 29), Person("Bob", 31))
+    val people = listOf(Person("Alice", 29), Person("Bob", 31),
+    Person("Carol", 31))
 //    findTheOldest(people)
 //    println(people.maxBy { it.age })
 //    println(people.maxBy{ p -> p.age })
@@ -52,5 +56,32 @@ fun main(args: Array<String>) {
 //    var responses = listOf("200 OK", "418 I'm a teapot", "500 Internal Server Error")
 //    printProblemCounts(responses)
 
-    run(::salute)
+//    run(::salute)
+
+//    val maxAge = people.maxBy(Person::age)!!.age
+//    println(maxAge)
+//    people.filter { it.age == maxAge }
+
+//    val strings = listOf("abc", "def")
+//    println(strings.flatMap { it.toList() })
+
+//    val books = listOf(Book("Thursday Next", listOf("Jasper Fforde")),
+//                        Book("Mort", listOf("Terry Pratchett")),
+//                        Book("Good Omens", listOf("Terry Pratchett", "Neil Gaiman")))
+//    println(books.flatMap { it.authors }.toSet())
+
+//    people.asSequence()
+//        .map(Person::name)
+//        .filter { it.startsWith("A") }
+//        .toList()
+
+//    val people2 = listOf(Person("Alice", 29), Person("Bob", 31),
+//    Person("Charles", 31), Person("Dan", 21))
+//    println(people2.asSequence().map(Person::name).filter { it.length < 4 }.toList())
+//    println(people2.asSequence().filter{ it.name.length < 4 }.map(Person::name).toList())
+
+    val naturalNumbers = generateSequence(0) { it + 1}
+    val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
+    println(numbersTo100.sum())
+
 }

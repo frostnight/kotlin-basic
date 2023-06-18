@@ -1,3 +1,4 @@
+import java.lang.StringBuilder
 import java.time.Period
 import java.util.Collections
 import kotlin.math.max
@@ -41,8 +42,8 @@ class Book(val title: String, val authors: List<String>)
 
 
 fun main(args: Array<String>) {
-    val people = listOf(Person("Alice", 29), Person("Bob", 31),
-    Person("Carol", 31))
+//    val people = listOf(Person("Alice", 29), Person("Bob", 31),
+//    Person("Carol", 31))
 //    findTheOldest(people)
 //    println(people.maxBy { it.age })
 //    println(people.maxBy{ p -> p.age })
@@ -80,8 +81,56 @@ fun main(args: Array<String>) {
 //    println(people2.asSequence().map(Person::name).filter { it.length < 4 }.toList())
 //    println(people2.asSequence().filter{ it.name.length < 4 }.map(Person::name).toList())
 
-    val naturalNumbers = generateSequence(0) { it + 1}
-    val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
-    println(numbersTo100.sum())
+//    val naturalNumbers = generateSequence(0) { it + 1}
+//    val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
+//    println(numbersTo100.sum())
 
+//    fun createAllDoneRunnable(): Runnable {
+//        return Runnable { println("All done!") }
+//    }
+//    createAllDoneRunnable().run()
+
+//    fun alphabet(): String {
+//        val result = StringBuilder()
+//        for(letter in 'A' .. 'Z') {
+//            result.append(letter)
+//        }
+//        result.append("\nNow I know the alphabet!")
+//        return result.toString()
+//    }
+
+//    fun alphabet(): String {
+//        val stringBuilder = StringBuilder()
+//        return with(stringBuilder) {
+//            for ( letter in 'A'..'Z'){
+//                this.append(letter)
+//            }
+//            append("\nNow I know the alphabet!2")
+//            this.toString()
+//        }
+//    }
+
+//    fun alphabet() = with(StringBuilder()) {
+//        for(letter in 'A'..'Z') {
+//            append(letter)
+//        }
+//        append("\nNow I know the alphabet")
+//        toString()
+//    }
+
+//    fun alphabet() = StringBuilder().apply {
+//        for (letter in 'A'..'Z') {
+//            append(letter)
+//        }
+//        append("\nNow I know the alphabet!")
+//    }.toString()
+
+    fun alphabet() = buildString {
+        for(letter in 'A'..'Z'){
+            append(letter)
+        }
+        append("\nNow I Know the alphabet!")
+    }
+
+    println(alphabet())
 }

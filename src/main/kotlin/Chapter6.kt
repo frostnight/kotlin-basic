@@ -27,6 +27,26 @@ fun printShippingLabel(person: PersonCh6) {
     }
 }
 
+class PersonCh6V2(val firstName: String, val lastName: String) {
+    override fun equals(o: Any?): Boolean {
+        val otherPerson = o as? PersonCh6V2 ?: return false
+
+        return otherPerson.firstName == firstName && otherPerson.lastName == lastName
+    }
+
+    override fun hashCode(): Int =
+        firstName.hashCode() * 37 + lastName.hashCode()
+}
+
+fun ignoreNulls(s: String?) {
+    val sNotNull: String = s!!
+    println(sNotNull.length)
+}
+
+fun sendEmailTo(email: String) {
+    println("Sending email to $email")
+}
+
 fun main(args: Array<String>) {
 //    val x: String? = null
 //    println(strLenSafe("abc"))
@@ -41,9 +61,23 @@ fun main(args: Array<String>) {
 
 //    val person = PersonCh6("Dmitry", null)
 //    println(person.countryName())
-    val address = Address("Elsestr. 47", 80687, "Munich", "Germany")
-    val jetbrains = Company("JetBrains", address)
-    val person = PersonCh6("Dmitry", jetbrains)
-    printShippingLabel(person)
-    printShippingLabel(PersonCh6("Alexey", null))
+
+//    val address = Address("Elsestr. 47", 80687, "Munich", "Germany")
+//    val jetbrains = Company("JetBrains", address)
+//    val person = PersonCh6("Dmitry", jetbrains)
+//    printShippingLabel(person)
+//    printShippingLabel(PersonCh6("Alexey", null))
+
+//    val p1 = PersonCh6V2("Dmitry", "Jemerov")
+//    val p2 = PersonCh6V2("Dmitry", "Jemerov")
+//    println(p1 == p2)
+//    print(p1.equals(42))
+
+//    ignoreNulls(null)
+    var email: String? = "yole@example.com"
+    email?.let {
+        sendEmailTo(it)
+    }
+    email = null
+    email?.let { sendEmailTo(it) }
 }

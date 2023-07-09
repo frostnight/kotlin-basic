@@ -47,6 +47,38 @@ fun sendEmailTo(email: String) {
     println("Sending email to $email")
 }
 
+fun verifyUserInput(input: String?){
+    if (input.isNullOrBlank()) {
+        println("Please fill in the required fields")
+    }
+}
+
+fun <T: Any> printHashCode(t: T){
+    println(t.hashCode())
+}
+
+fun yellAt(person: PersonJava) {
+    println(person.name.uppercase() + "!!!")
+}
+
+fun yellAtSafe(person: PersonJava) {
+    println((person.name ?: "Anyone").uppercase() + "!!!")
+}
+
+class StringPrinter: StringProcessor {
+    override fun process(value: String?) {
+        println(value)
+    }
+}
+
+class NullableStringPrinter : StringProcessor {
+    override fun process(value: String?) {
+        if (value != null){
+            println(value)
+        }
+    }
+}
+
 fun main(args: Array<String>) {
 //    val x: String? = null
 //    println(strLenSafe("abc"))
@@ -74,10 +106,19 @@ fun main(args: Array<String>) {
 //    print(p1.equals(42))
 
 //    ignoreNulls(null)
-    var email: String? = "yole@example.com"
-    email?.let {
-        sendEmailTo(it)
-    }
-    email = null
-    email?.let { sendEmailTo(it) }
+//    var email: String? = "yole@example.com"
+//    email?.let {
+//        sendEmailTo(it)
+//    }
+//    email = null
+//    email?.let { sendEmailTo(it) }
+
+//    verifyUserInput(" ")
+//    verifyUserInput(null)
+
+//    printHashCode(42)
+
+//    yellAtSafe(PersonJava(null))
+
+
 }

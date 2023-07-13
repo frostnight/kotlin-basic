@@ -79,6 +79,15 @@ class NullableStringPrinter : StringProcessor {
     }
 }
 
+class PersonCh6V3(val name: String, val age: Int? = null) {
+    fun isOlderThan(other: PersonCh6V3): Boolean? {
+        if (age == null || other.age == null)
+           return null
+        return age > other.age
+    }
+}
+
+
 fun main(args: Array<String>) {
 //    val x: String? = null
 //    println(strLenSafe("abc"))
@@ -120,5 +129,7 @@ fun main(args: Array<String>) {
 
 //    yellAtSafe(PersonJava(null))
 
+    println(PersonCh6V3("Sam", 35).isOlderThan(PersonCh6V3("Amy", 42)))
+    println(PersonCh6V3("Sam", 35).isOlderThan(PersonCh6V3("Jane")))
 
 }

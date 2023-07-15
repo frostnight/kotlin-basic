@@ -1,4 +1,7 @@
+import java.io.BufferedReader
+import java.io.StringReader
 import java.lang.IllegalArgumentException
+import java.lang.NumberFormatException
 
 fun strLen(s: String) = s.length
 
@@ -87,6 +90,46 @@ class PersonCh6V3(val name: String, val age: Int? = null) {
     }
 }
 
+fun readNumbers(reader: BufferedReader): List<Int?> {
+    val result = ArrayList<Int?>()
+    for (line in reader.lineSequence()) {
+        try {
+            val number = line.toInt()
+            result.add(number)
+        } catch (e: NumberFormatException) {
+            result.add(null)
+        }
+    }
+    return result
+}
+
+fun addValidNumbers(numbers: List<Int?>) {
+//    var sumOfValidNumbers = 0
+//    var invalidNumbers = 0
+//
+//    for(number in numbers) {
+//        if(number != null) {
+//            sumOfValidNumbers += number
+//        } else {
+//            invalidNumbers++
+//        }
+//    }
+//    println("Sum of valid numbers: $sumOfValidNumbers")
+//    println("Invalid numbers: $invalidNumbers")
+
+    // refactoring
+    val validNumbers = numbers.filterNotNull()
+    println("Sum of valid numbers: ${validNumbers.sum()}")
+    println("Invalid numbers: ${numbers.size - validNumbers.size}")
+
+}
+
+fun <T> copyElements(source: Collection<T>, target: MutableCollection<T>) {
+    for(item in source) {
+        target.add(item)
+    }
+}
+
 
 fun main(args: Array<String>) {
 //    val x: String? = null
@@ -114,6 +157,9 @@ fun main(args: Array<String>) {
 //    println(p1 == p2)
 //    print(p1.equals(42))
 
+
+//    verifyUserInput(" ")
+//    verifyUserInput(null)
 //    ignoreNulls(null)
 //    var email: String? = "yole@example.com"
 //    email?.let {
@@ -122,14 +168,21 @@ fun main(args: Array<String>) {
 //    email = null
 //    email?.let { sendEmailTo(it) }
 
-//    verifyUserInput(" ")
-//    verifyUserInput(null)
-
 //    printHashCode(42)
 
 //    yellAtSafe(PersonJava(null))
 
-    println(PersonCh6V3("Sam", 35).isOlderThan(PersonCh6V3("Amy", 42)))
-    println(PersonCh6V3("Sam", 35).isOlderThan(PersonCh6V3("Jane")))
+//    println(PersonCh6V3("Sam", 35).isOlderThan(PersonCh6V3("Amy", 42)))
+//    println(PersonCh6V3("Sam", 35).isOlderThan(PersonCh6V3("Jane")))
+
+//    var reader = BufferedReader(StringReader("1\nABC\n42"))
+//    val numbers = readNumbers(reader)
+//    addValidNumbers(numbers)
+
+    val source: Collection<Int> = arrayListOf(3, 5, 7)
+    val target: MutableCollection<Int> = arrayListOf(1)
+    copyElements(source, target)
+    println(target)
 
 }
+

@@ -1,4 +1,5 @@
 import java.io.BufferedReader
+import java.io.File
 import java.io.StringReader
 import java.lang.IllegalArgumentException
 import java.lang.NumberFormatException
@@ -130,6 +131,18 @@ fun <T> copyElements(source: Collection<T>, target: MutableCollection<T>) {
     }
 }
 
+class FileIndexer : FileContentProcessor {
+    override fun processContents(path: File, binaryContents: ByteArray?, textContents: List<String>?) {
+        TODO("Not yet implemented")
+    }
+}
+
+class PersonParser: DataParser<PersonCh6V3> {
+    override fun parseData(input: String, output: MutableList<PersonCh6V3>, errors: MutableList<String?>) {
+        TODO("Not yet implemented")
+    }
+}
+
 
 fun main(args: Array<String>) {
 //    val x: String? = null
@@ -179,10 +192,16 @@ fun main(args: Array<String>) {
 //    val numbers = readNumbers(reader)
 //    addValidNumbers(numbers)
 
-    val source: Collection<Int> = arrayListOf(3, 5, 7)
-    val target: MutableCollection<Int> = arrayListOf(1)
-    copyElements(source, target)
-    println(target)
+//    val source: Collection<Int> = arrayListOf(3, 5, 7)
+//    val target: MutableCollection<Int> = arrayListOf(1)
+//    copyElements(source, target)
+//    println(target)
+
+//    val letters = Array<String>(26) { i -> ('a' + i).toString()}
+//    println(letters.joinToString(""))
+
+    val strings = listOf("a", "b", "c")
+    println("%s/%s/%s".format(*strings.toTypedArray()))
 
 }
 

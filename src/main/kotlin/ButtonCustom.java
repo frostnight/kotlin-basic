@@ -1,6 +1,6 @@
 import org.jetbrains.annotations.NotNull;
 
-public class Button implements View {
+public class ButtonCustom implements View {
 
     @Override
     public State getCurrentState() {

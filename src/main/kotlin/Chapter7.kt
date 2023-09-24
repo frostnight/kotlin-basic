@@ -1,7 +1,11 @@
+import java.beans.PropertyChangeListener
+import java.beans.PropertyChangeSupport
 import java.lang.IndexOutOfBoundsException
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.Period
+import kotlin.properties.Delegates
+import kotlin.reflect.KProperty
 
 data class Point(val x: Int, val y: Int) {
     operator fun plus(other: Point): Point {
@@ -93,6 +97,79 @@ fun printEntries(map: Map<String, String>) {
     }
 }
 
+open class PropertyChangeAware {
+    protected val changeSupport = PropertyChangeSupport(this)
+
+    fun addPropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.addPropertyChangeListener(listener)
+    }
+
+    fun removePropertyChangeListner(listener: PropertyChangeListener) {
+        changeSupport.removePropertyChangeListener(listener)
+    }
+}
+
+class ObservableProperty(
+//    var propName: String, var propValue: Int,
+//    val changeSupport: PropertyChangeSupport
+    var propValue: Int, val changeSupport: PropertyChangeSupport
+) {
+//    fun getValue(): Int = propValue
+//    fun setValue(newValue: Int) {
+//        val oldValue = propValue
+//        propValue = newValue
+//        changeSupport.firePropertyChange(propName, oldValue, newValue)
+//    }
+
+    operator fun getValue(p: PersonCh72nd, prop: KProperty<*>) : Int = propValue
+    operator fun setValue(p: PersonCh72nd, prop: KProperty<*>, newValue: Int) {
+        val oldValue = propValue
+        propValue = newValue
+        changeSupport.firePropertyChange(prop.name, oldValue, newValue)
+    }
+}
+
+class PersonCh72nd(
+    val name: String, age: Int, salary: Int
+) : PropertyChangeAware() {
+//    var age: Int = age
+//        set(newValue){
+//            val oldValue = field
+//            field = newValue
+//            changeSupport.firePropertyChange(
+//                "age", oldValue, newValue
+//            )
+//        }
+//    var salary: Int = salary
+//        set(newValue) {
+//            val oldValue = field
+//            field = newValue
+//            changeSupport.firePropertyChange(
+//                "salary", oldValue, newValue
+//            )
+//        }
+
+//    val _age= ObservableProperty("age", age, changeSupport)
+//    var age: Int
+//        get() = _age.getValue()
+//        set(value) { _age.setValue(value) }
+//    val _salary = ObservableProperty("salary", salary, changeSupport)
+//    var salary: Int
+//        get() = _salary.getValue()
+//        set(value) { _salary.setValue(value)}
+
+//    var age: Int by ObservableProperty(age, changeSupport)
+//    var salary: Int by ObservableProperty(salary, changeSupport)
+
+    private val observer = {
+        prop: KProperty<*>, oldValue: Int, newValue: Int ->
+        changeSupport.firePropertyChange(prop.name, oldValue, newValue)
+    }
+
+    var age: Int by Delegates.observable(age, observer)
+    var salary: Int by Delegates.observable(salary, observer)
+}
+
 fun main(args: Array<String>) {
 //    val p1 = Point(10, 20)
 //    val p2 = Point(30, 40)
@@ -155,7 +232,17 @@ fun main(args: Array<String>) {
 //    println(name)
 //    print(ext)
 
-    val map = mapOf("Oracle" to "Java", "JetBrains" to "Kotlin")
-    printEntries(map)
+//    val map = mapOf("Oracle" to "Java", "JetBrains" to "Kotlin")
+//    printEntries(map)
+
+    val p = PersonCh72nd("Dmitry", 34, 2000)
+    p.addPropertyChangeListener(
+        PropertyChangeListener { event ->
+            println("Property ${event.propertyName} changed " +
+                "from ${event.oldValue} to ${event.newValue}")
+        }
+    )
+    p.age = 35
+    p.salary = 2100
 }
 

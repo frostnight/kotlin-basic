@@ -170,6 +170,25 @@ class PersonCh72nd(
     var salary: Int by Delegates.observable(salary, observer)
 }
 
+class PersonCh73rd {
+    // 추가정보
+//    private val _attributes = hashMapOf<String, String>()
+//    fun setAttribute(attrName: String, value: String) {
+//        _attributes[attrName] = value
+//    }
+//
+//    // 필수 정보
+//    val name: String
+//    get () = _attributes["name"]!!
+
+    private val _attributes = hashMapOf<String, String>()
+
+    fun setAttribute(attrName: String, value: String) {
+        _attributes[attrName] = value
+    }
+    val name: String by _attributes
+}
+
 fun main(args: Array<String>) {
 //    val p1 = Point(10, 20)
 //    val p2 = Point(30, 40)
@@ -235,14 +254,20 @@ fun main(args: Array<String>) {
 //    val map = mapOf("Oracle" to "Java", "JetBrains" to "Kotlin")
 //    printEntries(map)
 
-    val p = PersonCh72nd("Dmitry", 34, 2000)
-    p.addPropertyChangeListener(
-        PropertyChangeListener { event ->
-            println("Property ${event.propertyName} changed " +
-                "from ${event.oldValue} to ${event.newValue}")
-        }
-    )
-    p.age = 35
-    p.salary = 2100
+//    val p = PersonCh72nd("Dmitry", 34, 2000)
+//    p.addPropertyChangeListener(
+//        PropertyChangeListener { event ->
+//            println("Property ${event.propertyName} changed " +
+//                "from ${event.oldValue} to ${event.newValue}")
+//        }
+//    )
+//    p.age = 35
+//    p.salary = 2100
+
+    val p = PersonCh73rd()
+    val data = mapOf("name" to "Dmitry", "company" to "JetBrains")
+    for ((attrName, value ) in data)
+        p.setAttribute(attrName, value)
+    println(p.name)
 }
 
